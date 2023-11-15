@@ -9,6 +9,7 @@ import 'package:project111/controller/article_detail_contorller.dart';
 import 'package:project111/gen/assets.gen.dart';
 import 'package:get/get.dart';
 import 'package:project111/controller/home_screen_controller.dart';
+import 'package:project111/view/screens/article_list_screen.dart';
 import 'package:project111/view/screens/main_screen.dart';
 
 class ArticleDetailScreen extends StatefulWidget {
@@ -19,7 +20,7 @@ class ArticleDetailScreen extends StatefulWidget {
 }
 
 class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
-    ArticleController articleController = Get.put(ArticleController());
+  ArticleController articleController = Get.put(ArticleController());
 
   ArticleDetailController articleDetailController =
       Get.put(ArticleDetailController());
@@ -164,7 +165,20 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                             const SizedBox(
                               width: 10,
                             ),
-                            Text('تست $index', style: textTheme.displaySmall),
+                            GestureDetector(
+                              onTap: () {
+                                var tagsId =
+                                    articleDetailController.tagList[index].id!;
+
+                                Get.find<ArticleController>()
+                                    .getArticleListWithId(tagsId);
+
+                                Get.to(const ArticleList());
+                              },
+                              child: Text(
+                                  articleDetailController.tagList[index].title!,
+                                  style: textTheme.displaySmall),
+                            ),
                           ],
                         ),
                       ),
