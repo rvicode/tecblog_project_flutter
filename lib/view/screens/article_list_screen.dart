@@ -15,10 +15,10 @@ class ArticleList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  ArticleController articleController = Get.put(ArticleController());
+    ArticleController articleController = Get.put(ArticleController());
 
-  ArticleDetailController articleDetailController =
-      Get.put(ArticleDetailController());
+    ArticleDetailController articleDetailController =
+        Get.put(ArticleDetailController());
     var textTheme = Theme.of(context).textTheme;
 
     return MaterialApp(

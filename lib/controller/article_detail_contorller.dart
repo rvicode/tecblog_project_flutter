@@ -13,6 +13,7 @@ class ArticleDetailController extends GetxController {
   RxList<TagsModel> tagList = RxList();
 
   getArticleDetail() async {
+    articleDetailModel = ArticleDetailModel().obs;
     loading.value = true;
 
     var userId = '';
