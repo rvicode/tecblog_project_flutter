@@ -4,6 +4,7 @@ import 'package:project111/models/article_detail_model.dart';
 import 'package:project111/models/article_model.dart';
 import 'package:project111/models/tags_model.dart';
 import 'package:project111/services/dio_services.dart';
+import 'package:project111/view/screens/article_detail_screen.dart';
 
 class ArticleDetailController extends GetxController {
   Rx<ArticleDetailModel> articleDetailModel = ArticleDetailModel().obs;
@@ -12,7 +13,7 @@ class ArticleDetailController extends GetxController {
   RxBool loading = false.obs;
   RxList<TagsModel> tagList = RxList();
 
-  getArticleDetail() async {
+  getArticleDetail(var id) async {
     articleDetailModel = ArticleDetailModel().obs;
     loading.value = true;
 
@@ -22,8 +23,9 @@ class ArticleDetailController extends GetxController {
 
     if (response.statusCode == 200) {
       articleDetailModel.value = ArticleDetailModel.fromJson(response.data);
-
-      loading.value = false;
+    Get.back();
+    Get.to(ArticleDetailScreen());
+    loading.value = false;
     }
 
     tagList.clear();

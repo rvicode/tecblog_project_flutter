@@ -14,6 +14,7 @@ class ArticleController extends GetxController {
   }
 
   getList() async {
+    articleList = RxList();
     loading.value = true;
 
     var response = await DioServices().getMethod(ApiConstant.getArticleList);
@@ -38,7 +39,6 @@ class ArticleController extends GetxController {
       response.data.forEach((element) {
         articleList.add(ArticleModel.fromJson(element));
       });
-
       loading.value = false;
     }
   }
