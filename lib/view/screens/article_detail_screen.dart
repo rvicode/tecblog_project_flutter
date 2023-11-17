@@ -10,25 +10,14 @@ import 'package:project111/gen/assets.gen.dart';
 import 'package:get/get.dart';
 import 'package:project111/controller/home_screen_controller.dart';
 import 'package:project111/view/screens/article_list_screen.dart';
-import 'package:project111/view/screens/main_screen.dart';
 
-class ArticleDetailScreen extends StatefulWidget {
-  const ArticleDetailScreen({super.key});
+class ArticleDetailScreen extends StatelessWidget {
+  ArticleDetailScreen({super.key});
 
-  @override
-  State<ArticleDetailScreen> createState() => _ArticleDetailScreenState();
-}
-
-class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
   ArticleController articleController = Get.put(ArticleController());
 
   ArticleDetailController articleDetailController =
       Get.put(ArticleDetailController());
-  @override
-  void initState() {
-    super.initState();
-    articleDetailController.getArticleDetail();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,17 +55,14 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                           end: Alignment.bottomCenter,
                         )),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(15),
+                      SizedBox(
+                        width: Get.width,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             InkWell(
                               onTap: () {
-                                Navigator.of(context).pushReplacement(
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const MainScreen()));
+                                Get.back();
                               },
                               child: const Icon(
                                 Icons.arrow_right_alt,
@@ -183,7 +169,10 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                                       Get.find<ArticleController>()
                                           .getArticleListWithId(tagsId);
 
-                                      Get.to(const ArticleList());
+                                      Get.to(ArticleList(
+                                        title: tagsId = articleDetailController
+                                            .tagList[index].title!,
+                                      ));
                                     },
                                     child: Text(
                                         articleDetailController
@@ -221,116 +210,129 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                                 homeScreenController.topVisitedList.length,
                             itemBuilder: (context, index) {
                               // Blog
-                              return Padding(
-                                padding: EdgeInsets.fromLTRB(
-                                    8, 23, index == 0 ? bodyMargin : 8, 0),
-                                child: Row(
-                                  children: [
-                                    Column(
-                                      children: [
-                                        Stack(children: [
-                                          SizedBox(
-                                            height: size.height / 3.8,
-                                            width: size.width / 1.95,
-                                            child: CachedNetworkImage(
-                                              imageUrl: homeScreenController
-                                                  .topVisitedList[index].image!,
-                                              imageBuilder:
-                                                  (context, imageProvider) =>
-                                                      Container(
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(40),
-                                                  image: DecorationImage(
-                                                    image: imageProvider,
-                                                    fit: BoxFit.cover,
+                              return GestureDetector(
+                                onTap: () {
+                                  articleDetailController.getArticleDetail(
+                                      homeScreenController
+                                          .topVisitedList[index].id!);
+                                },
+                                child: Padding(
+                                  padding: EdgeInsets.fromLTRB(
+                                      8, 23, index == 0 ? bodyMargin : 8, 0),
+                                  child: Row(
+                                    children: [
+                                      Column(
+                                        children: [
+                                          Stack(children: [
+                                            SizedBox(
+                                              height: size.height / 3.8,
+                                              width: size.width / 1.95,
+                                              child: CachedNetworkImage(
+                                                imageUrl: homeScreenController
+                                                    .topVisitedList[index]
+                                                    .image!,
+                                                imageBuilder:
+                                                    (context, imageProvider) =>
+                                                        Container(
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            40),
+                                                    image: DecorationImage(
+                                                      image: imageProvider,
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  ),
+                                                  foregroundDecoration:
+                                                      BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            40),
+                                                    gradient: const LinearGradient(
+                                                        colors: GradiantColors
+                                                            .homeBlogCoverGradiant,
+                                                        begin: Alignment
+                                                            .bottomCenter,
+                                                        end: Alignment
+                                                            .topCenter),
                                                   ),
                                                 ),
-                                                foregroundDecoration:
-                                                    BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(40),
-                                                  gradient: const LinearGradient(
-                                                      colors: GradiantColors
-                                                          .homeBlogCoverGradiant,
-                                                      begin: Alignment
-                                                          .bottomCenter,
-                                                      end: Alignment.topCenter),
+                                                placeholder: (context, url) =>
+                                                    const SpinKitThreeBounce(
+                                                  color:
+                                                      SolidColors.primeryColor,
+                                                  size: 50.0,
                                                 ),
-                                              ),
-                                              placeholder: (context, url) =>
-                                                  const SpinKitThreeBounce(
-                                                color: SolidColors.primeryColor,
-                                                size: 50.0,
-                                              ),
-                                              errorWidget:
-                                                  (context, url, error) =>
-                                                      const Icon(
-                                                Icons
-                                                    .image_not_supported_outlined,
-                                                size: 50.0,
-                                                color: Colors.grey,
+                                                errorWidget:
+                                                    (context, url, error) =>
+                                                        const Icon(
+                                                  Icons
+                                                      .image_not_supported_outlined,
+                                                  size: 50.0,
+                                                  color: Colors.grey,
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                          Positioned(
-                                            bottom: 8,
-                                            right: 20,
-                                            left: 20,
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Text(
-                                                  homeScreenController
-                                                      .topVisitedList[index]
-                                                      .author!,
-                                                  style:
-                                                      textTheme.displayMedium,
-                                                ),
-                                                const SizedBox(
-                                                  width: 16,
-                                                ),
-                                                Text(
-                                                  homeScreenController
-                                                      .topVisitedList[index]
-                                                      .view!,
-                                                  style:
-                                                      textTheme.displayMedium,
-                                                ),
-                                                const Padding(
-                                                  padding: EdgeInsets.only(
-                                                      bottom: 5),
-                                                  child: Icon(
-                                                    Icons.remove_red_eye,
-                                                    color:
-                                                        SolidColors.scafoldBg,
-                                                    size: 20,
+                                            Positioned(
+                                              bottom: 8,
+                                              right: 20,
+                                              left: 20,
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Text(
+                                                    homeScreenController
+                                                        .topVisitedList[index]
+                                                        .author!,
+                                                    style:
+                                                        textTheme.displayMedium,
                                                   ),
-                                                ),
-                                              ],
+                                                  const SizedBox(
+                                                    width: 16,
+                                                  ),
+                                                  Text(
+                                                    homeScreenController
+                                                        .topVisitedList[index]
+                                                        .view!,
+                                                    style:
+                                                        textTheme.displayMedium,
+                                                  ),
+                                                  const Padding(
+                                                    padding: EdgeInsets.only(
+                                                        bottom: 5),
+                                                    child: Icon(
+                                                      Icons.remove_red_eye,
+                                                      color:
+                                                          SolidColors.scafoldBg,
+                                                      size: 20,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ]),
+                                          // title
+                                          Padding(
+                                            padding: const EdgeInsets.fromLTRB(
+                                                0, 12, 10, 0),
+                                            child: SizedBox(
+                                              width: size.width / 2.4,
+                                              child: Text(
+                                                homeScreenController
+                                                    .topVisitedList[index]
+                                                    .title!,
+                                                style: textTheme.displayLarge,
+                                                maxLines: 2,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
                                             ),
                                           ),
-                                        ]),
-                                        // title
-                                        Padding(
-                                          padding: const EdgeInsets.fromLTRB(
-                                              0, 12, 10, 0),
-                                          child: SizedBox(
-                                            width: size.width / 2.4,
-                                            child: Text(
-                                              homeScreenController
-                                                  .topVisitedList[index].title!,
-                                              style: textTheme.displayLarge,
-                                              maxLines: 2,
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               );
                             },

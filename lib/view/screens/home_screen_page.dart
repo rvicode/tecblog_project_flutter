@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:project111/components/my_component.dart';
+import 'package:project111/controller/article_contorller.dart';
+import 'package:project111/controller/article_detail_contorller.dart';
 import 'package:project111/controller/home_screen_controller.dart';
 import 'package:project111/gen/assets.gen.dart';
 import 'package:project111/components/my_colors.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:project111/components/my_string.dart';
-import 'package:project111/view/screens/article_detail_screen.dart';
 import 'package:project111/view/screens/article_list_screen.dart';
 
 // ignore: must_be_immutable
@@ -23,6 +24,8 @@ class HomeScreenPage extends StatelessWidget {
   final TextTheme text;
   final double bodyMargin;
   HomeScreenController homeScreenController = Get.put(HomeScreenController());
+  ArticleDetailController articleDetailController =
+      Get.put(ArticleDetailController());
 
   @override
   Widget build(BuildContext context) {
@@ -66,8 +69,8 @@ class HomeScreenPage extends StatelessWidget {
                 // Blog
                 return InkWell(
                   onTap: () {
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => const ArticleDetailScreen()));
+                    articleDetailController.getArticleDetail(
+                        homeScreenController.topVisitedList[index].id!);
                   },
                   child: Padding(
                     padding: EdgeInsets.fromLTRB(
@@ -183,12 +186,12 @@ class HomeScreenPage extends StatelessWidget {
               // Podcast
               return InkWell(
                 onTap: () {
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => ArticleDetailScreen()));
-                  },
+                  articleDetailController.getArticleDetail(
+                      homeScreenController.topVisitedList[index].id!);
+                },
                 child: Padding(
-                  padding:
-                      EdgeInsets.fromLTRB(8, 23, index == 0 ? bodyMargin : 8, 0),
+                  padding: EdgeInsets.fromLTRB(
+                      8, 23, index == 0 ? bodyMargin : 8, 0),
                   child: Row(
                     children: [
                       Column(
@@ -197,9 +200,10 @@ class HomeScreenPage extends StatelessWidget {
                             height: size.height / 3.8,
                             width: size.width / 2.0,
                             child: CachedNetworkImage(
-                              imageUrl:
-                                  homeScreenController.topPodCast[index].poster!,
-                              imageBuilder: (context, imageProvider) => Container(
+                              imageUrl: homeScreenController
+                                  .topPodCast[index].poster!,
+                              imageBuilder: (context, imageProvider) =>
+                                  Container(
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(40),
                                   image: DecorationImage(
@@ -225,7 +229,7 @@ class HomeScreenPage extends StatelessWidget {
                               width: size.width / 2.4,
                               child: Text(
                                   homeScreenController.topPodCast[index].title!,
-                                  style: text.headline1,
+                                  style: text.displayLarge,
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis),
                             ),
@@ -262,7 +266,7 @@ class HomeScreenPage extends StatelessWidget {
                 image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
               ),
             ),
-            placeholder: (context, url) => loading(),
+            placeholder: (context, url) => const loading(),
             errorWidget: (context, url, error) => const Icon(
               Icons.image_not_supported_outlined,
               size: 50.0,
@@ -280,7 +284,7 @@ class HomeScreenPage extends StatelessWidget {
                 padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
                 child: Text(
                   homeScreenController.poster.value.title!,
-                  style: text.bodyText1,
+                  style: text.bodyLarge,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -326,7 +330,7 @@ class HomeScreenPage extends StatelessWidget {
                       width: 10,
                     ),
                     Text(homeScreenController.tags[index].title!,
-                        style: text.headline2),
+                        style: text.displayMedium),
                   ],
                 ),
               ),
@@ -348,6 +352,8 @@ class HomePageSeeMorePodCast extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ArticleController articleController =
+        Get.put(ArticleController());
     return Padding(
       padding: const EdgeInsets.only(right: 40, top: 25),
       child: Row(
@@ -360,13 +366,17 @@ class HomePageSeeMorePodCast extends StatelessWidget {
             width: 16,
           ),
           InkWell(
-            onTap: (){
-              Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => ArticleList()));
+            onTap: () {
+              Get.to(
+                ArticleList(
+                  title: 'پادکست ها',
+                ),
+              );
+              articleController.getList();
             },
             child: Text(
               MyString.viewHotesPodcast,
-              style: text.bodyText2,
+              style: text.bodyMedium,
             ),
           ),
         ],
@@ -385,6 +395,8 @@ class HomePageSeeMoreBlog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ArticleController articleController =
+        Get.put(ArticleController());
     return Padding(
       padding: const EdgeInsets.only(right: 40, top: 25),
       child: Row(
@@ -397,9 +409,11 @@ class HomePageSeeMoreBlog extends StatelessWidget {
             width: 16,
           ),
           InkWell(
-            onTap: (){
-              Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => ArticleList()));
+            onTap: () {
+              Get.to(ArticleList(
+                title: 'وبلاگ ها',
+              ));
+              articleController.getList();
             },
             child: Text(
               MyString.viweHotesBlog,

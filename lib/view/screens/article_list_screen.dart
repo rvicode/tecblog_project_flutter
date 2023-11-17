@@ -8,10 +8,12 @@ import 'package:project111/controller/article_detail_contorller.dart';
 import 'package:project111/view/screens/article_detail_screen.dart';
 import 'package:project111/view/screens/main_screen.dart';
 
-// ignore: must_be_immutable
 class ArticleList extends StatelessWidget {
-  const ArticleList({super.key});
+  ArticleList({
+    required this.title,
+    super.key});
 
+  String? title;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +39,7 @@ class ArticleList extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: Center(
                         child: Text(
-                          'مقالات جدید',
+                          title!,
                           style: textTheme.displaySmall,
                         ),
                       ),
@@ -45,8 +47,7 @@ class ArticleList extends StatelessWidget {
                   ],
                   leading: InkWell(
                     onTap: () {
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (context) => const MainScreen()));
+                      Get.to(const MainScreen());
                     },
                     child: Container(
                       height: 50,
@@ -70,10 +71,9 @@ class ArticleList extends StatelessWidget {
                     itemBuilder: (context, index) {
                       return GestureDetector(
                         onTap: () {
-                          articleDetailController.id.value = int.parse(
-                              articleController.articleList[index].id
-                                  .toString());
-                          Get.to(const ArticleDetailScreen());
+                          articleDetailController.getArticleDetail(
+                              articleController.articleList[index].id!);
+                          Get.to(ArticleDetailScreen());
                         },
                         child: Padding(
                           padding: const EdgeInsets.only(top: 10, bottom: 10),
