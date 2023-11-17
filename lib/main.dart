@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:project111/components/my_colors.dart';
-import 'package:project111/view/screens/article_list_screen.dart';
+import 'package:project111/view/screens/main_screen.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -87,7 +87,7 @@ class MyApp extends StatelessWidget {
               fontWeight: FontWeight.w500,
             ),
           )),
-      home: ArticleList(),
+      home: const MainScreen(),
     );
   }
 }
