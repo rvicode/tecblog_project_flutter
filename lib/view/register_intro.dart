@@ -1,13 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:project111/controller/register_controller.dart';
 import 'package:project111/gen/assets.gen.dart';
 import 'package:project111/components/my_string.dart';
 import 'package:project111/view/my_category.dart';
 import 'package:validators/validators.dart';
 
 class RegisterIntro extends StatelessWidget {
-  const RegisterIntro({super.key});
+  RegisterIntro({super.key});
+
+  RegisterController registerController = Get.put(RegisterController());
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +29,8 @@ class RegisterIntro extends StatelessWidget {
             padding: const EdgeInsets.only(top: 20),
             child: RichText(
                 textAlign: TextAlign.center,
-                text:
-                    TextSpan(text: MyString.welcomText, style: text.displaySmall)),
+                text: TextSpan(
+                    text: MyString.welcomText, style: text.displaySmall)),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 35),
@@ -70,6 +74,8 @@ class RegisterIntro extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(24),
                       child: TextField(
+                        controller:
+                            registerController.emailTextEditingController,
                         onChanged: (value) {
                           if (isEmail(value)) {
                             confirmEmail = true;
@@ -125,6 +131,8 @@ class RegisterIntro extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(24),
                       child: TextField(
+                        controller:
+                            registerController.emailTextEditingController,
                         onChanged: (value) {
                           if (isInt(value)) {
                             confirmCode = true;

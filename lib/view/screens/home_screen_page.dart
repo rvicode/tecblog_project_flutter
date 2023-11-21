@@ -23,7 +23,9 @@ class HomeScreenPage extends StatelessWidget {
   final Size size;
   final TextTheme text;
   final double bodyMargin;
+
   HomeScreenController homeScreenController = Get.put(HomeScreenController());
+
   ArticleDetailController articleDetailController =
       Get.put(ArticleDetailController());
 
@@ -352,8 +354,7 @@ class HomePageSeeMorePodCast extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ArticleController articleController =
-        Get.put(ArticleController());
+    ArticleController articleController = Get.put(ArticleController());
     return Padding(
       padding: const EdgeInsets.only(right: 40, top: 25),
       child: Row(
@@ -395,8 +396,7 @@ class HomePageSeeMoreBlog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ArticleController articleController =
-        Get.put(ArticleController());
+    ArticleController articleController = Get.put(ArticleController());
     return Padding(
       padding: const EdgeInsets.only(right: 40, top: 25),
       child: Row(

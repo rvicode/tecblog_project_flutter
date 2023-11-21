@@ -125,7 +125,6 @@ class MainScreen extends StatelessWidget {
             children: [
               HomeScreenPage(size: size, text: text, bodyMargin: bodyMargin),
               ProfileScreen(size: size, text: text, bodyMargin: bodyMargin),
-              const RegisterIntro(),
             ],
           );
         })),
@@ -187,7 +186,9 @@ class BottomPageNavigationBar extends StatelessWidget {
                   iconSize: 30,
                 ),
                 IconButton(
-                  onPressed: () => changePageIndex(2),
+                  onPressed: () {
+                    Get.to(RegisterIntro());
+                  },
                   icon: ImageIcon(AssetImage(Assets.icons.par.keyName)),
                   color: Colors.white,
                   iconSize: 30,
