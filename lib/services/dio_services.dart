@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
-import 'package:get/get.dart';
+import 'package:dio/dio.dart' as dio_service;
 
 class DioServices {
   Dio dio = Dio();
@@ -21,12 +21,9 @@ class DioServices {
     dio.options.headers['Content-Type'] = 'application/json';
     return await dio
         .post(url,
-            data: map,
+            data: dio_service.FormData.fromMap(map),
             options: Options(responseType: ResponseType.json, method: 'POST'))
         .then((value) {
-      log(value.data.isString());
-      log(value.headers.toString());
-      log(value.statusCode.toString());
       return value;
     });
   }
