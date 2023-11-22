@@ -144,9 +144,10 @@ class RegisterIntro extends StatelessWidget {
                     ElevatedButton(
                         onPressed: () {
                           if (confirmCode == true) {
+                            registerController.verify();
                             Navigator.of(context)
                                 .pushReplacement(CupertinoPageRoute(
-                              builder: (context) => MyCategory(),
+                              builder: (context) => const MyCategory(),
                             ));
                           }
                         },
