@@ -89,11 +89,9 @@ class RegisterIntro extends StatelessWidget {
                     ),
                     ElevatedButton(
                         onPressed: () {
-                          if (confirmEmail == true) {
-                            Navigator.pop(context);
-                            _showModelBottomSheetCodeMessage(
-                                context, size, text);
-                          }
+                          registerController.register();
+                          Navigator.pop(context);
+                          _showModelBottomSheetCodeMessage(context, size, text);
                         },
                         child: const Text('ادامه'))
                   ]),
@@ -132,7 +130,7 @@ class RegisterIntro extends StatelessWidget {
                       padding: const EdgeInsets.all(24),
                       child: TextField(
                         controller:
-                            registerController.emailTextEditingController,
+                            registerController.activeCodeTextEditingController,
                         onChanged: (value) {
                           if (isInt(value)) {
                             confirmCode = true;
