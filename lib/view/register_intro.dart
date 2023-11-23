@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -145,10 +145,7 @@ class RegisterIntro extends StatelessWidget {
                         onPressed: () {
                           if (confirmCode == true) {
                             registerController.verify();
-                            Navigator.of(context)
-                                .pushReplacement(CupertinoPageRoute(
-                              builder: (context) => const MyCategory(),
-                            ));
+                            Get.to(const MyCategory());
                           }
                         },
                         child: const Text('ادامه'))
