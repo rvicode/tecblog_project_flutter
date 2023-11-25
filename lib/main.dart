@@ -1,12 +1,16 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:project111/components/my_colors.dart';
+import 'package:project111/my_https_override.dart';
 import 'package:project111/view/screens/main_screen.dart';
 
 void main() async {
+ HttpOverrides.global = MyHttpOverrides();
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: SolidColors.statusBarIconBrightness,
     statusBarIconBrightness: Brightness.dark,
