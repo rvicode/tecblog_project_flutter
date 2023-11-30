@@ -6,6 +6,7 @@ import 'package:project111/components/storage_const.dart';
 import 'package:project111/services/dio_services.dart';
 import 'package:project111/view/register_intro.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:project111/view/screens/main_screen.dart';
 
 class RegisterController extends GetxController {
   TextEditingController emailTextEditingController = TextEditingController();
@@ -52,6 +53,7 @@ class RegisterController extends GetxController {
         debugPrint(box.read(userID));
         Get.snackbar('Ok: ', 'Login Succssusfully',
             backgroundColor: Colors.green);
+        Get.offAll(const MainScreen());
         break;
       case 'incorrect_code':
         Get.snackbar('Error: ', 'Incorrace Code', backgroundColor: Colors.red);

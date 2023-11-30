@@ -149,7 +149,6 @@ class BottomPageNavigationBar extends StatelessWidget {
   final Size size;
   final Function(int) changePageIndex;
 
-  RegisterController registerController = Get.put(RegisterController());
   @override
   Widget build(BuildContext context) {
     return Positioned(
@@ -188,7 +187,7 @@ class BottomPageNavigationBar extends StatelessWidget {
                 ),
                 IconButton(
                   onPressed: () {
-                    registerController.toggleLogin();
+                     Get.find<RegisterController>().toggleLogin();
                   },
                   icon: ImageIcon(AssetImage(Assets.icons.par.keyName)),
                   color: Colors.white,

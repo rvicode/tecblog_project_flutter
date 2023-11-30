@@ -10,7 +10,7 @@ import 'package:validators/validators.dart';
 class RegisterIntro extends StatelessWidget {
   RegisterIntro({super.key});
 
-  RegisterController registerController = Get.put(RegisterController());
+  var registerController = Get.find<RegisterController>();
 
   @override
   Widget build(BuildContext context) {
@@ -144,8 +144,8 @@ class RegisterIntro extends StatelessWidget {
                         onPressed: () {
                           if (confirmCode == true) {
                             var response = registerController.verify();
-                            if (response == 'expired '){
-                            Get.to(const MyCategory());
+                            if (response == 'expired ') {
+                              Get.to(const MyCategory());
                             }
                           }
                         },
