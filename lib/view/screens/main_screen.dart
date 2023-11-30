@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:project111/components/my_string.dart';
+import 'package:project111/controller/register_controller.dart';
 import 'package:project111/gen/assets.gen.dart';
 import 'package:project111/components/my_colors.dart';
-import 'package:project111/view/register_intro.dart';
 import 'package:project111/view/screens/home_screen_page.dart';
 import 'package:project111/components/my_component.dart';
 import 'package:get/get.dart';
@@ -140,7 +140,7 @@ class MainScreen extends StatelessWidget {
 }
 
 class BottomPageNavigationBar extends StatelessWidget {
-  const BottomPageNavigationBar({
+  BottomPageNavigationBar({
     super.key,
     required this.size,
     required this.changePageIndex,
@@ -149,6 +149,7 @@ class BottomPageNavigationBar extends StatelessWidget {
   final Size size;
   final Function(int) changePageIndex;
 
+  RegisterController registerController = Get.put(RegisterController());
   @override
   Widget build(BuildContext context) {
     return Positioned(
@@ -187,7 +188,7 @@ class BottomPageNavigationBar extends StatelessWidget {
                 ),
                 IconButton(
                   onPressed: () {
-                    Get.to(RegisterIntro());
+                    registerController.toggleLogin();
                   },
                   icon: ImageIcon(AssetImage(Assets.icons.par.keyName)),
                   color: Colors.white,

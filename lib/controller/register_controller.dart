@@ -1,10 +1,10 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:project111/components/api_constant.dart';
 import 'package:project111/components/storage_const.dart';
 import 'package:project111/services/dio_services.dart';
 import 'package:project111/view/register_intro.dart';
-import 'package:project111/view/screens/main_screen.dart';
 import 'package:get_storage/get_storage.dart';
 
 class RegisterController extends GetxController {
@@ -38,11 +38,35 @@ class RegisterController extends GetxController {
 
     var response =
         await DioServices().postMethod(map, ApiConstant.postRegister);
+    var status = response.data['response'];
 
-    var box = GetStorage();
-    if (response.data['response'] == 'verified') {
-      box.write(userID, response.data['user_id']);
-      box.write(token, response.data['token']);
+    switch (status) {
+      case 'verified':
+        var box = GetStorage();
+        box.write(userID, response.data['user_id']);
+        box.write(token, response.data['token']);
+
+        debugPrint('verified');
+
+        debugPrint(box.read(token));
+        debugPrint(box.read(userID));
+        Get.snackbar('Ok: ', 'Login Succssusfully',
+            backgroundColor: Colors.green);
+        break;
+      case 'incorrect_code':
+        Get.snackbar('Error: ', 'Incorrace Code', backgroundColor: Colors.red);
+        break;
+      case 'expired':
+        Get.snackbar('Error: ', 'Expired', backgroundColor: Colors.yellow);
+        break;
+    }
+  }
+
+  toggleLogin() {
+    if (GetStorage().read(token) == null) {
+      Get.to(RegisterIntro());
+    } else {
+      debugPrint('Post Screen');
     }
   }
 }

@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -144,8 +143,10 @@ class RegisterIntro extends StatelessWidget {
                     ElevatedButton(
                         onPressed: () {
                           if (confirmCode == true) {
-                            registerController.verify();
+                            var response = registerController.verify();
+                            if (response == 'expired '){
                             Get.to(const MyCategory());
+                            }
                           }
                         },
                         child: const Text('ادامه'))
