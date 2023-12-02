@@ -14,10 +14,7 @@ import 'package:project111/view/screens/article_list_screen.dart';
 class ArticleDetailScreen extends StatelessWidget {
   ArticleDetailScreen({super.key});
 
-  ArticleController articleController = Get.put(ArticleController());
-
-  ArticleDetailController articleDetailController =
-      Get.put(ArticleDetailController());
+  var articleController = Get.find<ArticleDetailController>();
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +22,8 @@ class ArticleDetailScreen extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     var bodyMargin = size.width / 10;
     HomeScreenController homeScreenController = Get.put(HomeScreenController());
-    ArticleDetailController articleDetailController =
-        Get.put(ArticleDetailController());
+    var articleDetailController =
+        Get.find<ArticleDetailController>();
     return SafeArea(
         child: Scaffold(
       body: SingleChildScrollView(

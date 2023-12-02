@@ -140,7 +140,7 @@ class MainScreen extends StatelessWidget {
 }
 
 class BottomPageNavigationBar extends StatelessWidget {
-  BottomPageNavigationBar({
+  const BottomPageNavigationBar({
     super.key,
     required this.size,
     required this.changePageIndex,

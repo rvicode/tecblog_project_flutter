@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:get/get.dart';
 import 'package:project111/gen/assets.gen.dart';
 import 'package:project111/components/my_colors.dart';
-import 'package:project111/view/screens/main_screen.dart';
+import 'package:project111/main.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -15,9 +16,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     Future.delayed(const Duration(seconds: 2)).then((value) {
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (context) => const MainScreen(),
-      ));
+      Get.offAllNamed(routeMainScreen);
     });
 
     super.initState();

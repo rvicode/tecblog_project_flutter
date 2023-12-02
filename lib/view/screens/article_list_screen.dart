@@ -5,22 +5,19 @@ import 'package:project111/components/my_colors.dart';
 import 'package:project111/components/my_component.dart';
 import 'package:project111/controller/article_contorller.dart';
 import 'package:project111/controller/article_detail_contorller.dart';
-import 'package:project111/view/screens/article_detail_screen.dart';
-import 'package:project111/view/screens/main_screen.dart';
+import 'package:project111/main.dart';
+
 
 class ArticleList extends StatelessWidget {
-  ArticleList({
-    required this.title,
-    super.key});
+  ArticleList({required this.title, super.key});
 
   String? title;
 
   @override
   Widget build(BuildContext context) {
-    ArticleController articleController = Get.put(ArticleController());
+    var articleController = Get.find<ArticleController>();
 
-    ArticleDetailController articleDetailController =
-        Get.put(ArticleDetailController());
+    var articleDetailController = Get.find<ArticleDetailController>();
     var textTheme = Theme.of(context).textTheme;
 
     return MaterialApp(
@@ -47,7 +44,7 @@ class ArticleList extends StatelessWidget {
                   ],
                   leading: InkWell(
                     onTap: () {
-                      Get.to(const MainScreen());
+                      Get.toNamed(routeArticleDetail);
                     },
                     child: Container(
                       height: 50,
@@ -73,7 +70,7 @@ class ArticleList extends StatelessWidget {
                         onTap: () {
                           articleDetailController.getArticleDetail(
                               articleController.articleList[index].id!);
-                          Get.to(ArticleDetailScreen());
+                          Get.toNamed(routeArticleDetail);
                         },
                         child: Padding(
                           padding: const EdgeInsets.only(top: 10, bottom: 10),
