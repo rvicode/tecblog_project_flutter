@@ -7,6 +7,7 @@ import 'package:project111/services/dio_services.dart';
 import 'package:project111/view/register_intro.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:project111/view/screens/main_screen.dart';
+import 'package:project111/widget/bottom_sheet_upload_file.dart';
 
 class RegisterController extends GetxController {
   TextEditingController emailTextEditingController = TextEditingController();
@@ -68,7 +69,7 @@ class RegisterController extends GetxController {
     if (GetStorage().read(token) == null) {
       Get.to(RegisterIntro());
     } else {
-      debugPrint('Post Screen');
+      routeToWriteBottomSheet();
     }
   }
 }
