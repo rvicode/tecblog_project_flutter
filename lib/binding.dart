@@ -13,6 +13,16 @@ class ArticleBinding implements Bindings {
   }
 }
 
+class ArticleManageBinding implements Bindings {
+  @override
+  void dependencies() {
+    // TODO: implement dependencies
+
+    Get.put(ArticleManageBinding());
+    
+  }
+}
+
 class RegisterBinding implements Bindings {
   @override
   void dependencies() {
