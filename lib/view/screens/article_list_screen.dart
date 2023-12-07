@@ -7,7 +7,6 @@ import 'package:project111/controller/article_contorller.dart';
 import 'package:project111/controller/article_detail_contorller.dart';
 import 'package:project111/main.dart';
 
-
 class ArticleList extends StatelessWidget {
   ArticleList({required this.title, super.key});
 
@@ -44,7 +43,7 @@ class ArticleList extends StatelessWidget {
                   ],
                   leading: InkWell(
                     onTap: () {
-                      Get.toNamed(routeArticleDetail);
+                      Get.toNamed(NamedRoute.routeArticleDetail);
                     },
                     child: Container(
                       height: 50,
@@ -70,7 +69,7 @@ class ArticleList extends StatelessWidget {
                         onTap: () {
                           articleDetailController.getArticleDetail(
                               articleController.articleList[index].id!);
-                          Get.toNamed(routeArticleDetail);
+                          Get.toNamed(NamedRoute.routeArticleDetail);
                         },
                         child: Padding(
                           padding: const EdgeInsets.only(top: 10, bottom: 10),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:project111/gen/assets.gen.dart';
+import 'package:project111/main.dart';
 
 routeToWriteBottomSheet() {
   Get.bottomSheet(Container(
@@ -43,7 +44,7 @@ routeToWriteBottomSheet() {
         children: [
           GestureDetector(
             onTap: () {
-              print('hello');
+              Get.toNamed(NamedRoute.routeArticleManage);
             },
             child: Container(
               height: 50,
