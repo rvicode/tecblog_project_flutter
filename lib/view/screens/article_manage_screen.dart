@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:project111/components/my_colors.dart';
 import 'package:project111/controller/register_controller.dart';
 import 'package:project111/gen/assets.gen.dart';
 import 'package:project111/components/my_string.dart';
-import 'package:project111/view/my_category.dart';
-import 'package:validators/validators.dart';
+import 'package:project111/main.dart';
 
 class ArticleManage extends StatelessWidget {
   ArticleManage({super.key});
@@ -15,144 +15,73 @@ class ArticleManage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var text = Theme.of(context).textTheme;
-    var size = MediaQuery.of(context).size;
 
+    var textTheme = Theme.of(context).textTheme;
     return SafeArea(
         child: Scaffold(
-      body: Center(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SvgPicture.asset(Assets.images.tecbot.path, height: 100),
-          Padding(
-            padding: const EdgeInsets.only(top: 20),
-            child: RichText(
-                textAlign: TextAlign.center,
-                text: TextSpan(
-                    text: MyString.welcomText, style: text.displaySmall)),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 35),
-            child: ElevatedButton(
-                onPressed: () {
-                  showModelBottomSheetEmail(context, size, text);
-                },
-                child: const Text(MyString.letsGo)),
-          )
-        ],
-      )),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(90),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: appbar(textTheme),
+        ),
+      ),
+      body: emptyScreen(text),
     ));
   }
 
-  Future<dynamic> showModelBottomSheetEmail(
-      BuildContext context, Size size, TextTheme text) {
-    var confirmEmail = false;
-    return showModalBottomSheet(
-        isScrollControlled: true,
-        backgroundColor: Colors.transparent,
-        context: context,
-        builder: (context) {
-          return Padding(
-            padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).viewInsets.bottom),
-            child: Container(
-              height: size.height / 2,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(25),
-                    topRight: Radius.circular(25)),
-                color: Colors.white,
-              ),
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      MyString.createEmail,
-                      style: text.displaySmall,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(24),
-                      child: TextField(
-                        controller:
-                            registerController.emailTextEditingController,
-                        onChanged: (value) {
-                          if (isEmail(value)) {
-                            confirmEmail = true;
-                          }
-                        },
-                        textAlign: TextAlign.center,
-                        decoration: InputDecoration(
-                            hintText: 'techblog@gmail.com',
-                            hintStyle: text.headlineMedium),
-                      ),
-                    ),
-                    ElevatedButton(
-                        onPressed: () {
-                          registerController.register();
-                          Navigator.pop(context);
-                          _showModelBottomSheetCodeMessage(context, size, text);
-                        },
-                        child: const Text('ادامه'))
-                  ]),
-            ),
-          );
-        });
+  Widget emptyScreen(TextTheme text) {
+    return Center(
+        child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SvgPicture.asset(Assets.images.techbotEmpty.path, height: 100),
+        Padding(
+          padding: const EdgeInsets.only(top: 20),
+          child: RichText(
+              textAlign: TextAlign.center,
+              text: TextSpan(
+                  text: MyString.emptyTextManage, style: text.displaySmall)),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 35),
+          child: ElevatedButton(
+              onPressed: () {}, child: const Text(MyString.emptyBotton)),
+        )
+      ],
+    ));
   }
 
-  Future<dynamic> _showModelBottomSheetCodeMessage(
-      BuildContext context, Size size, TextTheme text) {
-    var confirmCode = false;
-    return showModalBottomSheet(
-        isScrollControlled: true,
-        backgroundColor: Colors.transparent,
-        context: context,
-        builder: (context) {
-          return Padding(
-            padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).viewInsets.bottom),
-            child: Container(
-              height: size.height / 2,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(25),
-                    topRight: Radius.circular(25)),
-                color: Colors.white,
-              ),
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      MyString.createCode,
-                      style: text.displaySmall,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(24),
-                      child: TextField(
-                        controller:
-                            registerController.activeCodeTextEditingController,
-                        onChanged: (value) {
-                          if (isInt(value)) {
-                            confirmCode = true;
-                          }
-                        },
-                        textAlign: TextAlign.center,
-                        decoration: InputDecoration(
-                            hintText: '******', hintStyle: text.headlineMedium),
-                      ),
-                    ),
-                    ElevatedButton(
-                        onPressed: () {
-                          if (confirmCode == true) {
-                            var response = registerController.verify();
-                            if (response == 'expired ') {
-                              Get.to(const MyCategory());
-                            }
-                          }
-                        },
-                        child: const Text('ادامه'))
-                  ]),
+  appbar(TextTheme textTheme) {
+    var title = 'مدیریت مقاله ها';
+
+    return AppBar(
+      elevation: 0,
+      backgroundColor: Colors.transparent,
+      actions: [
+        Padding(
+          padding: const EdgeInsets.only(left: 10),
+          child: Center(
+            child: Text(
+              title,
+              style: textTheme.displaySmall,
             ),
-          );
-        });
+          ),
+        ),
+      ],
+      leading: InkWell(
+        onTap: () {
+          Get.toNamed(NamedRoute.routeArticleDetail);
+        },
+        child: Container(
+          height: 50,
+          width: 50,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(100),
+              color: SolidColors.primeryColor),
+          child: const Icon(Icons.arrow_back),
+        ),
+      ),
+    );
   }
 }

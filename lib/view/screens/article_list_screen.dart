@@ -27,34 +27,7 @@ class ArticleList extends StatelessWidget {
               preferredSize: const Size.fromHeight(90),
               child: Padding(
                 padding: const EdgeInsets.all(16),
-                child: AppBar(
-                  elevation: 0,
-                  backgroundColor: Colors.transparent,
-                  actions: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Center(
-                        child: Text(
-                          title!,
-                          style: textTheme.displaySmall,
-                        ),
-                      ),
-                    ),
-                  ],
-                  leading: InkWell(
-                    onTap: () {
-                      Get.toNamed(NamedRoute.routeArticleDetail);
-                    },
-                    child: Container(
-                      height: 50,
-                      width: 50,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100),
-                          color: SolidColors.primeryColor),
-                      child: const Icon(Icons.arrow_back),
-                    ),
-                  ),
-                ),
+                child: appbar(textTheme),
               ),
             ),
             body: Padding(
@@ -166,5 +139,36 @@ class ArticleList extends StatelessWidget {
             ),
           ),
         ));
+  }
+
+  Widget appbar(TextTheme textTheme) {
+    return AppBar(
+                elevation: 0,
+                backgroundColor: Colors.transparent,
+                actions: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Center(
+                      child: Text(
+                        title!,
+                        style: textTheme.displaySmall,
+                      ),
+                    ),
+                  ),
+                ],
+                leading: InkWell(
+                  onTap: () {
+                    Get.toNamed(NamedRoute.routeArticleDetail);
+                  },
+                  child: Container(
+                    height: 50,
+                    width: 50,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(100),
+                        color: SolidColors.primeryColor),
+                    child: const Icon(Icons.arrow_back),
+                  ),
+                ),
+              );
   }
 }

@@ -12,6 +12,7 @@ class MyString {
   static const String viewFavPodCast = "پادکست های مورد علاقه من";
   static const String logOut = "خروج از حساب کاربری";
   static const String letsGo = "بزن بریم";
+  static const String emptyBotton = "بریم برای نوشتن یه مقاله باحال";
   static const String createEmail = "لطفا ایمیل را وارد کنید";
   static const String createCode = "لطفا کد پیامکی را وارد کنید";
   static const String confirmEmail = "ایمیل قابل ورود است";
@@ -25,6 +26,9 @@ class MyString {
 
 برای ارسال مطلب و پادکست باید حتما 
 ثبت نام کنی """;
+  static const String emptyTextManage =
+      """هنوز هیچ مقاله ای به جامعه گیک های فارسی 
+اضافه نکردی !!!""";
   static const String articleDetailHeadline =
       """۵ بازی مشابه Assassin’s Creed Valhalla که باید بازی کنید""";
   static const String articleDetailDescription = """
