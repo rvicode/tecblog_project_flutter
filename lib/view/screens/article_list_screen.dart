@@ -30,145 +30,145 @@ class ArticleList extends StatelessWidget {
                 child: appbar(textTheme),
               ),
             ),
-            body: Padding(
-              padding:
-                  const EdgeInsets.only(top: 5, right: 15, left: 15, bottom: 5),
-              child: Obx(() => ListView.builder(
-                    physics: const BouncingScrollPhysics(),
-                    scrollDirection: Axis.vertical,
-                    itemCount: articleController.articleList.length,
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () {
-                          articleDetailController.getArticleDetail(
-                              articleController.articleList[index].id!);
-                          Get.toNamed(NamedRoute.routeArticleDetail);
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 10, bottom: 10),
-                          child: Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  SizedBox(
-                                    width: 230,
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          articleController
-                                              .articleList[index].title!,
-                                          style: textTheme.displaySmall,
-                                          overflow: TextOverflow.ellipsis,
-                                          maxLines: 3,
-                                          textAlign: TextAlign.end,
-                                        ),
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          children: [
-                                            Text(
-                                              articleController
-                                                  .articleList[index].author!,
-                                              style: textTheme.displaySmall,
-                                              overflow: TextOverflow.ellipsis,
-                                              maxLines: 3,
-                                              textAlign: TextAlign.end,
-                                            ),
-                                            Text(
-                                              articleController
-                                                  .articleList[index].createAt!,
-                                              style: textTheme.displaySmall,
-                                              overflow: TextOverflow.ellipsis,
-                                              maxLines: 3,
-                                              textAlign: TextAlign.end,
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  const SizedBox(height: 15),
-                                  CachedNetworkImage(
-                                    imageUrl: articleController
-                                        .articleList[index].image!,
-                                    imageBuilder: (context, imageProvider) {
-                                      return SizedBox(
-                                        height: 100,
-                                        width: 100,
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(16),
-                                              image: DecorationImage(
-                                                  image: imageProvider,
-                                                  fit: BoxFit.cover)),
-                                        ),
-                                      );
-                                    },
-                                    placeholder: (context, url) {
-                                      return const loading();
-                                    },
-                                    errorWidget: (context, url, error) {
-                                      return const Icon(
-                                        Icons.image_not_supported_outlined,
-                                        size: 15,
-                                        color: Colors.grey,
-                                      );
-                                    },
-                                  ),
-                                ],
-                              ),
-                              if (index !=
-                                  articleController.articleList.length - 1)
-                                const Divider(
-                                  color: SolidColors.underLine,
-                                )
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                  )),
-            ),
+            body: emptyScreen(
+                articleController, articleDetailController, textTheme),
           ),
         ));
   }
 
-  Widget appbar(TextTheme textTheme) {
-    return AppBar(
-                elevation: 0,
-                backgroundColor: Colors.transparent,
-                actions: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Center(
-                      child: Text(
-                        title!,
-                        style: textTheme.displaySmall,
+  Widget emptyScreen(ArticleController articleController,
+      ArticleDetailController articleDetailController, TextTheme textTheme) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 5, right: 15, left: 15, bottom: 5),
+      child: Obx(() => ListView.builder(
+            physics: const BouncingScrollPhysics(),
+            scrollDirection: Axis.vertical,
+            itemCount: articleController.articleList.length,
+            itemBuilder: (context, index) {
+              return GestureDetector(
+                onTap: () {
+                  articleDetailController.getArticleDetail(
+                      articleController.articleList[index].id!);
+                  Get.toNamed(NamedRoute.routeArticleDetail);
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 10, bottom: 10),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          SizedBox(
+                            width: 230,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(
+                                  articleController.articleList[index].title!,
+                                  style: textTheme.displaySmall,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 3,
+                                  textAlign: TextAlign.end,
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Text(
+                                      articleController
+                                          .articleList[index].author!,
+                                      style: textTheme.displaySmall,
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 3,
+                                      textAlign: TextAlign.end,
+                                    ),
+                                    Text(
+                                      articleController
+                                          .articleList[index].createAt!,
+                                      style: textTheme.displaySmall,
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 3,
+                                      textAlign: TextAlign.end,
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(height: 15),
+                          CachedNetworkImage(
+                            imageUrl:
+                                articleController.articleList[index].image!,
+                            imageBuilder: (context, imageProvider) {
+                              return SizedBox(
+                                height: 100,
+                                width: 100,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(16),
+                                      image: DecorationImage(
+                                          image: imageProvider,
+                                          fit: BoxFit.cover)),
+                                ),
+                              );
+                            },
+                            placeholder: (context, url) {
+                              return const loading();
+                            },
+                            errorWidget: (context, url, error) {
+                              return const Icon(
+                                Icons.image_not_supported_outlined,
+                                size: 15,
+                                color: Colors.grey,
+                              );
+                            },
+                          ),
+                        ],
                       ),
-                    ),
-                  ),
-                ],
-                leading: InkWell(
-                  onTap: () {
-                    Get.toNamed(NamedRoute.routeArticleDetail);
-                  },
-                  child: Container(
-                    height: 50,
-                    width: 50,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(100),
-                        color: SolidColors.primeryColor),
-                    child: const Icon(Icons.arrow_back),
+                      if (index != articleController.articleList.length - 1)
+                        const Divider(
+                          color: SolidColors.underLine,
+                        )
+                    ],
                   ),
                 ),
               );
+            },
+          )),
+    );
+  }
+
+  Widget appbar(TextTheme textTheme) {
+    return AppBar(
+      elevation: 0,
+      backgroundColor: Colors.transparent,
+      actions: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Center(
+            child: Text(
+              title!,
+              style: textTheme.displaySmall,
+            ),
+          ),
+        ),
+      ],
+      leading: InkWell(
+        onTap: () {
+          Get.toNamed(NamedRoute.routeArticleDetail);
+        },
+        child: Container(
+          height: 50,
+          width: 50,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(100),
+              color: SolidColors.primeryColor),
+          child: const Icon(Icons.arrow_back),
+        ),
+      ),
+    );
   }
 }
