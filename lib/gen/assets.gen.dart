@@ -67,8 +67,13 @@ class $AssetsImagesGen {
   /// File path: assets/images/tecbot.svg
   SvgGenImage get tecbot => const SvgGenImage('assets/images/tecbot.svg');
 
+  /// File path: assets/images/techbot_empty.svg
+  SvgGenImage get techbotEmpty =>
+      const SvgGenImage('assets/images/techbot_empty.svg');
+
   /// List of all assets
-  List<dynamic> get values => [lo, screenPic, singlePlaceHolder, tecbot];
+  List<dynamic> get values =>
+      [lo, screenPic, singlePlaceHolder, tecbot, techbotEmpty];
 }
 
 class Assets {
