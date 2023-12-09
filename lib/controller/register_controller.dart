@@ -45,13 +45,13 @@ class RegisterController extends GetxController {
     switch (status) {
       case 'verified':
         var box = GetStorage();
-        box.write(userID, response.data['user_id']);
-        box.write(token, response.data['token']);
+        box.write(StorageKey.userID, response.data['user_id']);
+        box.write(StorageKey.token, response.data['token']);
 
         debugPrint('verified');
 
-        debugPrint(box.read(token));
-        debugPrint(box.read(userID));
+        debugPrint(box.read(StorageKey.token));
+        debugPrint(box.read(StorageKey.userID));
         Get.snackbar('Ok: ', 'Login Succssusfully',
             backgroundColor: Colors.green);
         Get.offAll(const MainScreen());
@@ -66,7 +66,7 @@ class RegisterController extends GetxController {
   }
 
   toggleLogin() {
-    if (GetStorage().read(token) == null) {
+    if (GetStorage().read(StorageKey.token) == null) {
       Get.to(RegisterIntro());
     } else {
       routeToWriteBottomSheet();
