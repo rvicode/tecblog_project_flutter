@@ -187,7 +187,7 @@ class BottomPageNavigationBar extends StatelessWidget {
                 ),
                 IconButton(
                   onPressed: () {
-                     Get.find<RegisterController>().toggleLogin();
+                    Get.find<RegisterController>().toggleLogin();
                   },
                   icon: ImageIcon(AssetImage(Assets.icons.par.keyName)),
                   color: Colors.white,
