@@ -1,8 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:get/get_navigation/src/router_report.dart';
 import 'package:project111/components/my_colors.dart';
-import 'package:project111/controller/register_controller.dart';
+import 'package:project111/components/my_component.dart';
+import 'package:project111/controller/article_manage_controller.dart';
 import 'package:project111/gen/assets.gen.dart';
 import 'package:project111/components/my_string.dart';
 import 'package:project111/main.dart';
@@ -10,7 +13,7 @@ import 'package:project111/main.dart';
 class ArticleManage extends StatelessWidget {
   ArticleManage({super.key});
 
-  var registerController = Get.find<RegisterController>();
+  var articleManageController = Get.find<ArticleManageController>();
 
   @override
   Widget build(BuildContext context) {
@@ -19,15 +22,134 @@ class ArticleManage extends StatelessWidget {
     var textTheme = Theme.of(context).textTheme;
     return SafeArea(
         child: Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(90),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: appbar(textTheme),
-        ),
-      ),
-      body: emptyScreen(text),
-    ));
+            appBar: PreferredSize(
+              preferredSize: const Size.fromHeight(90),
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: appbar(textTheme),
+              ),
+            ),
+            body: Obx(
+              () => articleManageController.loading.value
+                  ? const loading()
+                  : articleManageController.articleList.isNotEmpty
+                      ? ListView.builder(
+                          physics: const BouncingScrollPhysics(),
+                          scrollDirection: Axis.vertical,
+                          itemCount: articleManageController.articleList.length,
+                          itemBuilder: (context, index) {
+                            return GestureDetector(
+                              onTap: () {
+                                articleManageController.getArticleManaged();
+                                Get.toNamed(NamedRoute.routeArticleDetail);
+                              },
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.only(top: 10, bottom: 10),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        SizedBox(
+                                          width: 230,
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                articleManageController
+                                                    .articleList[index].title!,
+                                                style: textTheme.displaySmall,
+                                                overflow: TextOverflow.ellipsis,
+                                                maxLines: 3,
+                                                textAlign: TextAlign.end,
+                                              ),
+                                              const SizedBox(
+                                                height: 10,
+                                              ),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceAround,
+                                                children: [
+                                                  Text(
+                                                    articleManageController
+                                                        .articleList[index]
+                                                        .author!,
+                                                    style:
+                                                        textTheme.displaySmall,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    maxLines: 3,
+                                                    textAlign: TextAlign.end,
+                                                  ),
+                                                  Text(
+                                                    articleManageController
+                                                        .articleList[index]
+                                                        .createAt!,
+                                                    style:
+                                                        textTheme.displaySmall,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    maxLines: 3,
+                                                    textAlign: TextAlign.end,
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        const SizedBox(height: 15),
+                                        CachedNetworkImage(
+                                          imageUrl: articleManageController
+                                              .articleList[index].image!,
+                                          imageBuilder:
+                                              (context, imageProvider) {
+                                            return SizedBox(
+                                              height: 100,
+                                              width: 100,
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            16),
+                                                    image: DecorationImage(
+                                                        image: imageProvider,
+                                                        fit: BoxFit.cover)),
+                                              ),
+                                            );
+                                          },
+                                          placeholder: (context, url) {
+                                            return const loading();
+                                          },
+                                          errorWidget: (context, url, error) {
+                                            return const Icon(
+                                              Icons
+                                                  .image_not_supported_outlined,
+                                              size: 15,
+                                              color: Colors.grey,
+                                            );
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                    if (index !=
+                                        articleManageController
+                                                .articleList.length -
+                                            1)
+                                      const Divider(
+                                        color: SolidColors.underLine,
+                                      ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        )
+                      : emptyScreen(text),
+            )));
   }
 
   Widget emptyScreen(TextTheme text) {
@@ -71,7 +193,7 @@ class ArticleManage extends StatelessWidget {
       ],
       leading: InkWell(
         onTap: () {
-          Get.toNamed(NamedRoute.routeArticleDetail);
+          Get.back();
         },
         child: Container(
           height: 50,
