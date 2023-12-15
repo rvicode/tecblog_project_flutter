@@ -6,6 +6,10 @@ class MyString {
   static const String relatedArticle = "نوشته های مرتبط";
   static const String submitArticle = "ارسال مقاله";
   static const String anOtherArticle = "نوشته های مرتبط";
+  static const String writeBlog = "ویرایش عنوان مقاله";
+  static const String writeFirstComment = "ویرایش متن اصلی مقاله";
+  static const String writeCategory = "انتخاب دسته بندی";
+  static const String itsFinish = "تموم شد";
   static const String submitPodcast = "ارسال پادکست";
   static const String editProfileImage = "ویرایش عکس پروفایل";
   static const String viewFavBlog = "مقالات مورد علاقه من";
