@@ -4,13 +4,10 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:project111/components/my_colors.dart';
 import 'package:project111/components/my_component.dart';
 import 'package:project111/components/my_string.dart';
-import 'package:project111/controller/article_contorller.dart';
 import 'package:project111/controller/article_detail_contorller.dart';
 import 'package:project111/gen/assets.gen.dart';
 import 'package:get/get.dart';
 import 'package:project111/controller/home_screen_controller.dart';
-import 'package:project111/view/screens/article_list_screen.dart';
-
 class ArticleDetailScreen extends StatelessWidget {
   ArticleDetailScreen({super.key});
 
@@ -133,58 +130,7 @@ class ArticleDetailScreen extends StatelessWidget {
                       style: textTheme.displaySmall,
                     ),
                   ),
-                  SizedBox(
-                    height: 60,
-                    child: ListView.builder(
-                      physics: const BouncingScrollPhysics(),
-                      scrollDirection: Axis.horizontal,
-                      itemCount: articleDetailController.tagList.length,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: EdgeInsets.fromLTRB(
-                              8, 8, index == 0 ? bodyMargin : 8, 8),
-                          child: Container(
-                            height: 60,
-                            decoration: const BoxDecoration(
-                              color: SolidColors.selectTagsColor,
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(30),
-                              ),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
-                              child: Row(
-                                children: [
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      var tagsId = articleDetailController
-                                          .tagList[index].id!;
-
-                                      Get.find<ArticleController>()
-                                          .getArticleListWithId(tagsId);
-
-                                      Get.to(ArticleList(
-                                        title: tagsId = articleDetailController
-                                            .tagList[index].title!,
-                                      ));
-                                    },
-                                    child: Text(
-                                        articleDetailController
-                                            .tagList[index].title!,
-                                        style: textTheme.displaySmall),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                  Padding(
+                 Padding(
                     padding: const EdgeInsets.only(right: 40, top: 25),
                     child: Row(
                       children: [
