@@ -59,7 +59,7 @@ class MyApp extends StatelessWidget {
             page: () => ArticleManage(),
             binding: ArticleManageBinding()),
         GetPage(
-            name: NamedRoute.routeArticleManage,
+            name: NamedRoute.routeArticleManageDetail,
             page: () => ArticleManageDetail(),
             binding: ArticleManageBinding()),
       ],
