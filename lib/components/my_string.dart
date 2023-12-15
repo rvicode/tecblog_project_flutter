@@ -12,7 +12,7 @@ class MyString {
   static const String viewFavPodCast = "پادکست های مورد علاقه من";
   static const String logOut = "خروج از حساب کاربری";
   static const String letsGo = "بزن بریم";
-  static const String emptyBotton = "بریم برای نوشتن یه مقاله باحال";
+  static const String writeblogBottom = "بریم برای نوشتن یه مقاله باحال";
   static const String createEmail = "لطفا ایمیل را وارد کنید";
   static const String createCode = "لطفا کد پیامکی را وارد کنید";
   static const String confirmEmail = "ایمیل قابل ورود است";
