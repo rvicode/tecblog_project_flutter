@@ -142,7 +142,9 @@ class ArticleManage extends StatelessWidget {
         child: ElevatedButton(
             style: ButtonStyle(
                 fixedSize: MaterialStateProperty.all(Size(0, Get.height / 14))),
-            onPressed: () {},
+            onPressed: () {
+              Get.toNamed(NamedRoute.routeArticleManageDetail);
+            },
             child: const Text(MyString.writeblogBottom)),
       ),
     ));
