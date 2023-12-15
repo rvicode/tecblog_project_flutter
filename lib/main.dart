@@ -9,6 +9,7 @@ import 'package:project111/binding.dart';
 import 'package:project111/components/my_colors.dart';
 import 'package:project111/my_https_override.dart';
 import 'package:project111/view/screens/article_detail_screen.dart';
+import 'package:project111/view/screens/article_manage_detail.dart';
 import 'package:project111/view/screens/article_manage_screen.dart';
 import 'package:project111/view/screens/main_screen.dart';
 import 'package:project111/view/screens/splash_screen.dart';
@@ -56,6 +57,10 @@ class MyApp extends StatelessWidget {
         GetPage(
             name: NamedRoute.routeArticleManage,
             page: () => ArticleManage(),
+            binding: ArticleManageBinding()),
+        GetPage(
+            name: NamedRoute.routeArticleManage,
+            page: () => ArticleManageDetail(),
             binding: ArticleManageBinding()),
       ],
       home: const SplashScreen(),
@@ -125,4 +130,5 @@ class NamedRoute {
   static String routeMainScreen = '/MainScreen';
   static String routeArticleDetail = '/ArticleDetail';
   static String routeArticleManage = '/ArticleManage';
+  static String routeArticleManageDetail = '/ArticleManageDetail';
 }
