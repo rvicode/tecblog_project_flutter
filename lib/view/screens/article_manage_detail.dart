@@ -1,14 +1,20 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:project111/components/my_colors.dart';
 import 'package:project111/components/my_component.dart';
 import 'package:project111/components/my_string.dart';
+import 'package:project111/controller/file_picker_controller.dart';
 import 'package:project111/gen/assets.gen.dart';
 import 'package:get/get.dart';
 import 'package:project111/main.dart';
+import 'package:project111/services/file_pick.dart';
 
 class ArticleManageDetail extends StatelessWidget {
-  const ArticleManageDetail({super.key});
+  ArticleManageDetail({super.key});
+
+  FilePickerController filePickerController = Get.put(FilePickerController());
 
   @override
   Widget build(BuildContext context) {
@@ -34,13 +40,25 @@ class ArticleManageDetail extends StatelessWidget {
           child: Column(children: [
             Stack(
               children: [
-                CachedNetworkImage(
-                  imageUrl: '',
-                  imageBuilder: (context, imageProvider) =>
-                      Image(image: imageProvider),
-                  placeholder: (context, url) => const loading(),
-                  errorWidget: (context, url, error) => Image(
-                      image: AssetImage(Assets.images.singlePlaceHolder.path)),
+                Obx(
+                  () => SizedBox(
+                    height: Get.height / 3,
+                    width: Get.width,
+                    child: filePickerController.file.value.name == 'nothing'
+                        ? CachedNetworkImage(
+                            imageUrl: '',
+                            imageBuilder: (context, imageProvider) =>
+                                Image(image: imageProvider),
+                            placeholder: (context, url) => const loading(),
+                            errorWidget: (context, url, error) => Image(
+                                image: AssetImage(
+                                    Assets.images.singlePlaceHolder.path)),
+                          )
+                        : Image.file(
+                            File(filePickerController.file.value.path!),
+                            fit: BoxFit.cover,
+                          ),
+                  ),
                 ),
                 Container(
                   height: 60,
@@ -74,10 +92,12 @@ class ArticleManageDetail extends StatelessWidget {
                   bottom: 0,
                   child: Center(
                     child: GestureDetector(
-                      onTap: (() {}),
+                      onTap: (() {
+                        pickFile();
+                      }),
                       child: Container(
                         height: 30,
-                        width: 100,
+                        width: 150,
                         decoration: const BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(8)),
                             color: SolidColors.primeryColor),
@@ -150,7 +170,7 @@ class ArticleManageDetail extends StatelessWidget {
                         alignment: Alignment.topRight,
                         child: Text(
                           'من متن و بدنه اصلی مقاله هستم ، اگه میخوای من رو ویرایش کنی و یه مقاله جذاب بنویسی ، نوشته آبی رنگ بالا که نوشته "ویرایش متن اصلی مقاله" رو با انگشتت لمس کن تا وارد ویرایشگر بشی',
-                          style: textTheme.headline1,
+                          style: textTheme.displayLarge,
                         ),
                       )
                     ],
