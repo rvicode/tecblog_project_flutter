@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:project111/components/my_colors.dart';
 import 'package:project111/components/my_component.dart';
 import 'package:project111/components/my_string.dart';
+import 'package:project111/controller/article_manage_controller.dart';
 import 'package:project111/controller/file_picker_controller.dart';
 import 'package:project111/gen/assets.gen.dart';
 import 'package:get/get.dart';
@@ -21,6 +22,29 @@ class ArticleManageDetail extends StatelessWidget {
     var textTheme = Theme.of(context).textTheme;
     var size = MediaQuery.of(context).size;
     var bodyMargin = size.width / 15;
+    var manageArticleController = Get.find<ArticleManageController>();
+
+
+    getTitle() {
+      Get.defaultDialog(
+          title: 'عنوان مقاله',
+          titleStyle: const TextStyle(color: SolidColors.scafoldBg),
+          content: TextField(
+            controller: manageArticleController.titleTextEditingController,
+            keyboardType: TextInputType.text,
+            decoration: const InputDecoration(
+              hintText: 'عنوان مقاله',
+            ),
+          ),
+          backgroundColor: SolidColors.primeryColor,
+          radius: 8,
+          confirm: ElevatedButton(
+              onPressed: (() {
+                manageArticleController.updateTitle();
+                Get.back();
+              }),
+              child: const Text('تمام')));
+    }
 
     return SafeArea(
       child: Scaffold(
@@ -118,7 +142,9 @@ class ArticleManageDetail extends StatelessWidget {
                   child: Column(
                     children: [
                       GestureDetector(
-                        onTap: (() {}),
+                        onTap: (() {
+                          getTitle();
+                        }),
                         child: SizedBox(
                             height: 20,
                             child: Row(
@@ -137,8 +163,8 @@ class ArticleManageDetail extends StatelessWidget {
                       Align(
                         alignment: Alignment.topRight,
                         child: Text(
-                          'اینجا عنوان مقاله قرار میگیره ، یه عنوان جذاب انتخاب کن',
-                          style: textTheme.headline1,
+                           manageArticleController.articleInfoModel.value.title!,
+                          style: textTheme.displayLarge,
                           textAlign: TextAlign.start,
                         ),
                       )
