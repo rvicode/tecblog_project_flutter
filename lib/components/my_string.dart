@@ -4,6 +4,11 @@ class MyString {
       "https://github.com/sasansafari/techblog";
   static const String viewHotesPodcast = "مشاهده داغ ترین پادکست ها";
   static const String relatedArticle = "نوشته های مرتبط";
+  static String titltArrticle =
+      'اینجا عنوان مقاله قرار میگیره ، یه عنوان جذاب انتخاب کن';
+  static String editOrginalTextArticle = """
+من متن و بدنه اصلی مقاله هستم ، اگه میخوای من رو ویرایش کنی و یه مقاله جذاب بنویسی ، نوشته آبی رنگ بالا که نوشته "ویرایش متن اصلی مقاله" رو با انگشتت لمس کن تا وارد ویرایشگر بشی""";
+
   static const String submitArticle = "ارسال مقاله";
   static const String anOtherArticle = "نوشته های مرتبط";
   static const String writeBlog = "ویرایش عنوان مقاله";
