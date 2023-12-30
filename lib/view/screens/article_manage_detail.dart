@@ -55,36 +55,36 @@ class ArticleManageDetail extends StatelessWidget {
           padding:
               const EdgeInsets.only(left: 32, right: 32, top: 8, bottom: 16),
           child: ElevatedButton(
-              style: ButtonStyle(
-                  fixedSize:
-                      MaterialStateProperty.all(Size(0, Get.height / 14))),
-              onPressed: () {
-                Get.toNamed(NamedRoute.routeMainScreen);
-              },
-              child: const Text(MyString.itsFinish)),
+                style: ButtonStyle(
+                    fixedSize:
+                        MaterialStateProperty.all(Size(0, Get.height / 14))),
+                onPressed: () async =>
+                    await manageArticleController.storeArticle(),
+                child: const Text(MyString.itsFinish)),
         ),
-        body: SingleChildScrollView(
-          child: Obx(()=> Column(children: [
+        body: Obx(
+          () => SingleChildScrollView(
+            child: Column(children: [
               Stack(
                 children: [
-                 SizedBox(
-                      height: Get.height / 3,
-                      width: Get.width,
-                      child: filePickerController.file.value.name == 'nothing'
-                          ? CachedNetworkImage(
-                              imageUrl: '',
-                              imageBuilder: (context, imageProvider) =>
-                                  Image(image: imageProvider),
-                              placeholder: (context, url) => const loading(),
-                              errorWidget: (context, url, error) => Image(
-                                  image: AssetImage(
-                                      Assets.images.singlePlaceHolder.path)),
-                            )
-                          : Image.file(
-                              File(filePickerController.file.value.path!),
-                              fit: BoxFit.cover,
-                            ),
-                    ),
+                  SizedBox(
+                    height: Get.height / 3,
+                    width: Get.width,
+                    child: filePickerController.file.value.name == 'nothing'
+                        ? CachedNetworkImage(
+                            imageUrl: '',
+                            imageBuilder: (context, imageProvider) =>
+                                Image(image: imageProvider),
+                            placeholder: (context, url) => const loading(),
+                            errorWidget: (context, url, error) => Image(
+                                image: AssetImage(
+                                    Assets.images.singlePlaceHolder.path)),
+                          )
+                        : Image.file(
+                            File(filePickerController.file.value.path!),
+                            fit: BoxFit.cover,
+                          ),
+                  ),
                   Container(
                     height: 60,
                     foregroundDecoration: const BoxDecoration(
@@ -124,7 +124,8 @@ class ArticleManageDetail extends StatelessWidget {
                           height: 30,
                           width: 150,
                           decoration: const BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(8)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8)),
                               color: SolidColors.primeryColor),
                           child: Center(
                             child: Text('انتخاب تصویر+',
@@ -164,7 +165,8 @@ class ArticleManageDetail extends StatelessWidget {
                         Align(
                           alignment: Alignment.topRight,
                           child: Text(
-                            manageArticleController.articleInfoModel.value.title!,
+                            manageArticleController
+                                .articleInfoModel.value.title!,
                             style: textTheme.displayLarge,
                             textAlign: TextAlign.start,
                           ),

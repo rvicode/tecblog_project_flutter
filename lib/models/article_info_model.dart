@@ -14,11 +14,9 @@ class ArticleInfoModel {
   bool? isFavorite;
 
   ArticleInfoModel(
- 
-   this.title,
-   this.content,
-   this.image,
-   
+    this.title,
+    this.content,
+    this.image,
   );
 
   ArticleInfoModel.fromJson(Map<String, dynamic> element) {
@@ -26,7 +24,7 @@ class ArticleInfoModel {
     id = info['id'];
     title = info['title'];
     content = info['content'];
-    image = ApiConstant.baseDlUrl + info['image'];
+    image = ApiUrlConstant.baseDlUrl + info['image'];
     catId = info['cat_id'];
     catName = info['cat_name'];
     author = info['author'];

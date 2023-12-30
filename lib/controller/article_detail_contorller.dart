@@ -19,13 +19,13 @@ class ArticleDetailController extends GetxController {
 
     var userId = '';
     var response = await DioServices().getMethod(
-        '${ApiConstant.baseUrl}article/get.php?command=info&id=$id&user_id=$userId');
+        '${ApiUrlConstant.baseUrl}article/get.php?command=info&id=$id&user_id=$userId');
 
     if (response.statusCode == 200) {
       articleDetailModel.value = ArticleDetailModel.fromJson(response.data);
-    Get.back();
-    Get.to(ArticleDetailScreen());
-    loading.value = false;
+      Get.back();
+      Get.to(ArticleDetailScreen());
+      loading.value = false;
     }
 
     tagList.clear();

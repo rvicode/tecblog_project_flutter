@@ -22,7 +22,7 @@ class HomeScreenController extends GetxController {
   getHomeItems() async {
     loading.value = true;
 
-    var response = await DioServices().getMethod(ApiConstant.getHomeItem);
+    var response = await DioServices().getMethod(ApiUrlConstant.getHomeItem);
 
     if (response.statusCode == 200) {
       response.data['tags'].forEach((element) {
