@@ -27,7 +27,7 @@ class ArticleList extends StatelessWidget {
               preferredSize: const Size.fromHeight(90),
               child: Padding(
                 padding: const EdgeInsets.all(16),
-                child: appbar(textTheme),
+                child: appbar(textTheme, '$title'),
               ),
             ),
             body: Padding(
@@ -140,35 +140,35 @@ class ArticleList extends StatelessWidget {
           ),
         ));
   }
+}
 
-  Widget appbar(TextTheme textTheme) {
-    return AppBar(
-      elevation: 0,
-      backgroundColor: Colors.transparent,
-      actions: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Center(
-            child: Text(
-              title!,
-              style: textTheme.displaySmall,
-            ),
+appbar(TextTheme textTheme, String title) {
+  return AppBar(
+    elevation: 0,
+    backgroundColor: Colors.transparent,
+    actions: [
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Center(
+          child: Text(
+            title,
+            style: textTheme.displaySmall,
           ),
         ),
-      ],
-      leading: InkWell(
-        onTap: () {
-          Get.back();
-        },
-        child: Container(
-          height: 50,
-          width: 50,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(100),
-              color: SolidColors.primeryColor),
-          child: const Icon(Icons.arrow_back),
-        ),
       ),
-    );
-  }
+    ],
+    leading: InkWell(
+      onTap: () {
+        Get.back();
+      },
+      child: Container(
+        height: 50,
+        width: 50,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(100),
+            color: SolidColors.primeryColor),
+        child: const Icon(Icons.arrow_back),
+      ),
+    ),
+  );
 }
