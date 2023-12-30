@@ -46,7 +46,8 @@ dependencies:
   cached_network_image: ^3.3.0
   flutter_html: ^3.0.0-beta.2
   get_storage: ^2.1.1
-  file_picker: ^6.1.1
+  file_picker: ^5.2.0+1
+  html_editor_enhanced: ^2.5.1
 
 
 flutter_gen:
