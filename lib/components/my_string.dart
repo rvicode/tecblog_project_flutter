@@ -13,6 +13,8 @@ class MyString {
   static String hintArticleContentEditor = "میتونی مقاله‌تو اینجا بنویسی...";
 
   static const String submitArticle = "ارسال مقاله";
+  static const String noCategorySelected = "هیچ دسته بندی انتخاب نشده";
+
   static const String anOtherArticle = "نوشته های مرتبط";
   static const String writeBlog = "ویرایش عنوان مقاله";
   static const String writeFirstComment = "ویرایش متن اصلی مقاله";
